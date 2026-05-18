@@ -17,10 +17,23 @@ public class Main extends JFrame {
         JToolBar toolbar = new JToolBar();
         JButton colorBtn = new JButton("Color");
         toolbar.add(colorBtn);
+        toolbar.addSeparator();
 
         JToggleButton horizontalMirror = new JToggleButton("Mirror horizontal");
         JToggleButton verticalMirror = new JToggleButton("Mirror vertical");
         JToggleButton fullMirror = new JToggleButton("Mirror fully");
+
+        horizontalMirror.addActionListener(e ->
+                gridPanel.toggleMirrorHorizontal(horizontalMirror.isSelected())
+        );
+
+        verticalMirror.addActionListener(e ->
+                gridPanel.toggleMirrorVertical(verticalMirror.isSelected())
+        );
+
+        fullMirror.addActionListener(e ->
+                gridPanel.toggleFullMirror(fullMirror.isSelected())
+        );
 
         toolbar.add(horizontalMirror);
         toolbar.addSeparator();

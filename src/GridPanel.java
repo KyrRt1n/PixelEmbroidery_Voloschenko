@@ -7,6 +7,10 @@ public class GridPanel extends JPanel {
     private final EmbroideryGrid grid;
     private Color currentColor = Color.BLACK;
 
+    private boolean mirrorHorizontal = false;
+    private boolean mirrorVertical = false;
+    private boolean mirrorFull = false;
+
     public GridPanel(EmbroideryGrid grid) {
         this.grid = grid;
         setPreferredSize(new Dimension(grid.getCols() * cellSize,grid.getRows() * cellSize));
@@ -27,6 +31,15 @@ public class GridPanel extends JPanel {
 
                 if (row >= 0 && row < grid.getRows() && col >= 0 && col < grid.getCols()) {
                     grid.setCell(row, col, currentColor);
+                    if (mirrorHorizontal)
+                        grid.setCell(row, grid.getCols() - 1 - col, currentColor);
+                    if (mirrorVertical)
+                        grid.setCell(grid.getRows() - 1 - row, col, currentColor);
+                    if (mirrorFull) {
+                        grid.setCell(row, grid.getCols() - 1 - col, currentColor);
+                        grid.setCell(grid.getRows() - 1 - row, col, currentColor);
+                        grid.setCell(grid.getRows() - 1 - row, grid.getCols() - 1 - col, currentColor);
+                    }
                     repaint();
                 }
             }
@@ -47,5 +60,17 @@ public class GridPanel extends JPanel {
                 g.drawRect(c * cellSize, r * cellSize, cellSize, cellSize);
             }
         }
+    }
+
+    public void toggleMirrorHorizontal(boolean v) {
+        mirrorHorizontal = v;
+    }
+
+    public void toggleMirrorVertical(boolean v) {
+        mirrorVertical = v;
+    }
+
+    public void toggleFullMirror(boolean v) {
+        mirrorFull = v;
     }
 }
