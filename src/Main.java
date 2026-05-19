@@ -49,6 +49,14 @@ public class Main extends JFrame {
         toolbar.addSeparator();
 
         JButton clearBtn = new JButton("Clear");
+        clearBtn.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(null,"Are you sure you want to proceed?",
+                    "Confirm Action", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                grid.ClearGrid();
+                repaint();
+            }
+        });
 
         toolbar.add(clearBtn);
 

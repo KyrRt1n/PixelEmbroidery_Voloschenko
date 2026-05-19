@@ -13,6 +13,11 @@ public class EmbroideryGrid {
                 cells[r][c] = Color.WHITE;
     }
 
+    public void ClearGrid(){
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                cells[r][c] = Color.WHITE;
+    }
 
     public Color getCellColor(int row, int col) {
         return cells[row][col];
