@@ -3,6 +3,9 @@ import java.awt.*;
 
 public class Main extends JFrame {
 
+    static Color[] lastUsedColors = {Color.BLACK, Color.RED, Color.ORANGE, Color.YELLOW, Color.WHITE};
+    static JButton[] colorButtons = new JButton[lastUsedColors.length];
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
     }
@@ -61,10 +64,46 @@ public class Main extends JFrame {
         toolbar.add(clearBtn);
 
         add(toolbar, BorderLayout.NORTH);
+        JToolBar colorBar = new JToolBar(JToolBar.VERTICAL);
+        for (int i = 0; i < lastUsedColors.length; i++) {
+            Color c = lastUsedColors[i];
+            JButton btn = new JButton();
+            btn.setBackground(c);
+            btn.setPreferredSize(new Dimension(32, 32));
+            btn.setBorderPainted(true);
+            btn.setFocusPainted(false);
+
+            colorButtons[i] = btn;
+
+            btn.addActionListener(e -> {
+                gridPanel.setCurrentColor(btn.getBackground());
+                colorBar.repaint();
+            });
+            btn.setMaximumSize(btn.getPreferredSize());
+            btn.setMinimumSize(btn.getPreferredSize());
+            colorBar.add(btn);
+            colorBar.addSeparator(new Dimension(0, 8));
+        }
+        add(colorBar, BorderLayout.WEST);
         add(new JScrollPane(gridPanel), BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    public static void updateLastUsedColors(Color newColor) {
+        for (Color curr : lastUsedColors)
+            if (curr.equals(newColor))
+                return;
+
+        for (int i = lastUsedColors.length - 1; i > 0; i--)
+            lastUsedColors[i] = lastUsedColors[i-1];
+        lastUsedColors[0] = newColor;
+
+        for (int i = 0; i < colorButtons.length; i++)
+            if (colorButtons[i] != null)
+                colorButtons[i].setBackground(lastUsedColors[i]);
+    }
+
 }

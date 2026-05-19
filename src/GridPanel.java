@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GridPanel extends JPanel {
-    private static final int cellSize = 20;
+    private static final int cellSize = 16;
     private final EmbroideryGrid grid;
     private Color currentColor = Color.BLACK;
 
@@ -50,6 +50,8 @@ public class GridPanel extends JPanel {
 
     public void setCurrentColor(Color c) {
         this.currentColor = c;
+        Main.updateLastUsedColors(c);
+        repaint();
     }
 
     public Color getCurrentColor() {
