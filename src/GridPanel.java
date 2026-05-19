@@ -48,6 +48,13 @@ public class GridPanel extends JPanel {
         addMouseMotionListener(ma);
     }
 
+    public void setCurrentColor(Color c) {
+        this.currentColor = c;
+    }
+
+    public Color getCurrentColor() {
+        return currentColor;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

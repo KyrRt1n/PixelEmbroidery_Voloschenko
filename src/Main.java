@@ -16,6 +16,12 @@ public class Main extends JFrame {
 
         JToolBar toolbar = new JToolBar();
         JButton colorBtn = new JButton("Color");
+        colorBtn.addActionListener(e -> {
+            ColorPicker picker = new ColorPicker(this, gridPanel.getCurrentColor());
+            picker.setVisible(true);
+            Color chosen = picker.getSelectedColor();
+            if (chosen != null) gridPanel.setCurrentColor(chosen);
+        });
         toolbar.add(colorBtn);
         toolbar.addSeparator();
 
