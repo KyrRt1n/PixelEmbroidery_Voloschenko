@@ -1,8 +1,26 @@
-import java.awt.Color;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class EmbroideryGrid {
     private final Color[][] cells;
     private final int rows, cols;
+
+    public BufferedImage exportToImg() {
+        BufferedImage img = new BufferedImage(cols, rows, BufferedImage.TYPE_INT_RGB);
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                img.setRGB(c, r, cells[r][c].getRGB());
+        return img;
+    }
+
+    public void importFromImg(BufferedImage img){
+        for(int r = 0; r < rows; r++){
+            for(int c = 0; c < cols; c++) {
+                cells[r][c] = new Color(img.getRGB(c, r));
+            }
+        }
+    }
 
     public EmbroideryGrid(int rows, int cols) {
         this.rows = rows;

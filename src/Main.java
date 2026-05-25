@@ -63,6 +63,38 @@ public class Main extends JFrame {
 
         toolbar.add(clearBtn);
 
+        JButton saveBtn = new JButton("Export PNG");
+        saveBtn.addActionListener(e -> {
+            JFileChooser fc = new JFileChooser();
+            fc.setSelectedFile(new File("StandardEmbroidery.png"));
+            if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    ImageIO.write(grid.exportToImg(), "PNG", fc.getSelectedFile());
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Save failed: " + ex.getMessage());
+                }
+            }
+        });
+
+        JButton loadBtn = new JButton("Import PNG");
+        loadBtn.addActionListener(e -> {
+            JFileChooser fc = new JFileChooser();
+            if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    BufferedImage img = ImageIO.read(fc.getSelectedFile());
+                    grid.importFromImg(img);
+                    gridPanel.repaint();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Load failed: " + ex.getMessage());
+                }
+            }
+        });
+
+        toolbar.add(Box.createHorizontalGlue());
+        toolbar.add(saveBtn);
+        toolbar.addSeparator();
+        toolbar.add(loadBtn);
+
         add(toolbar, BorderLayout.NORTH);
         JToolBar colorBar = new JToolBar(JToolBar.VERTICAL);
         for (int i = 0; i < lastUsedColors.length; i++) {
