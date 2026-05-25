@@ -14,7 +14,7 @@ public class Main extends JFrame {
         setTitle("Pixel embroidery by Voloschenko Artem");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        EmbroideryGrid grid = new EmbroideryGrid(40, 50);
+        EmbroideryGrid grid = new EmbroideryGrid(45, 45);
         GridPanel gridPanel = new GridPanel(grid);
 
         JToolBar toolbar = new JToolBar();
