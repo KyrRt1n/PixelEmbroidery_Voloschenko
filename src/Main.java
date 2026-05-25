@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Main extends JFrame {
 
@@ -14,10 +17,41 @@ public class Main extends JFrame {
         setTitle("Pixel embroidery by Voloschenko Artem");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        EmbroideryGrid grid = new EmbroideryGrid(45, 45);
+        JTextField rowsField = new JTextField("45", 5);
+        JTextField colsField = new JTextField("45", 5);
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.add(new JLabel("← Rows →"));
+        inputPanel.add(rowsField);
+        inputPanel.add(Box.createHorizontalStrut(15));
+        inputPanel.add(new JLabel("↑ Cols ↓"));
+        inputPanel.add(colsField);
+
+        JPanel sizePanel = new JPanel(new BorderLayout(0, 10));
+        sizePanel.add(inputPanel, BorderLayout.CENTER);
+
+        JLabel recommendation = new JLabel("I recommend use default 45x45 field");
+        recommendation.setHorizontalAlignment(SwingConstants.CENTER);
+        sizePanel.add(recommendation, BorderLayout.SOUTH);
+
+        int result = JOptionPane.showConfirmDialog(null, sizePanel,
+                "Input grid size", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        int rows = 45;
+        int cols = 45;
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                rows = Integer.parseInt(rowsField.getText());
+                cols = Integer.parseInt(colsField.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Incorrect input. Using default 45x45 grid");
+            }
+        }
+
+        EmbroideryGrid grid = new EmbroideryGrid(rows, cols);
         GridPanel gridPanel = new GridPanel(grid);
 
-        BufferedImage startImg = null;
+        BufferedImage startImg;
         try {
             startImg = ImageIO.read(new File("src/StandardEmbroidery.png"));
         } catch (IOException e) {
@@ -75,7 +109,7 @@ public class Main extends JFrame {
         JButton saveBtn = new JButton("Export PNG");
         saveBtn.addActionListener(e -> {
             JFileChooser fc = new JFileChooser();
-            fc.setSelectedFile(new File("StandardEmbroidery.png"));
+            fc.setSelectedFile(new File("Embroidery.png"));
             if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 try {
                     ImageIO.write(grid.exportToImg(), "PNG", fc.getSelectedFile());

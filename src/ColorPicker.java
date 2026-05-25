@@ -18,7 +18,7 @@ public class ColorPicker extends JDialog {
         this.selectedColor = initial;
         BufferedImage loaded;
         try {
-            loaded = ImageIO.read(new File("wheel.png"));
+            loaded = ImageIO.read(new File("src/wheel.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
