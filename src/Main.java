@@ -51,13 +51,15 @@ public class Main extends JFrame {
         EmbroideryGrid grid = new EmbroideryGrid(rows, cols);
         GridPanel gridPanel = new GridPanel(grid);
 
-        BufferedImage startImg;
         try {
-            startImg = ImageIO.read(new File("src/StandardEmbroidery.png"));
+            File file = new File("src/StandardEmbroidery.png");
+            if (file.exists()) {
+                BufferedImage startImg = ImageIO.read(file);
+                grid.importFromImg(startImg);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Start image not found, opening empty grid");
         }
-        grid.importFromImg(startImg);
         gridPanel.repaint();
 
         JToolBar toolbar = new JToolBar();
