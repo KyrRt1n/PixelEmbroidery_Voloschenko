@@ -15,8 +15,11 @@ public class EmbroideryGrid {
     }
 
     public void importFromImg(BufferedImage img){
-        for(int r = 0; r < rows; r++){
-            for(int c = 0; c < cols; c++) {
+        int maxRows = Math.min(rows, img.getHeight());
+        int maxCols = Math.min(cols, img.getWidth());
+
+        for(int r = 0; r < maxRows; r++){
+            for(int c = 0; c < maxCols; c++) {
                 cells[r][c] = new Color(img.getRGB(c, r));
             }
         }

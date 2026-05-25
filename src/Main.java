@@ -17,6 +17,15 @@ public class Main extends JFrame {
         EmbroideryGrid grid = new EmbroideryGrid(45, 45);
         GridPanel gridPanel = new GridPanel(grid);
 
+        BufferedImage startImg = null;
+        try {
+            startImg = ImageIO.read(new File("src/StandardEmbroidery.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        grid.importFromImg(startImg);
+        gridPanel.repaint();
+
         JToolBar toolbar = new JToolBar();
         JButton colorBtn = new JButton("Color");
         colorBtn.addActionListener(e -> {
