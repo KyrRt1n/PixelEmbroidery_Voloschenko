@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Main extends JFrame {
 
-    static Color[] lastUsedColors = {Color.BLACK, Color.RED, Color.ORANGE, Color.YELLOW, Color.WHITE};
+    static Color[] lastUsedColors = {Color.BLACK, new Color(55, 155, 55), Color.RED, Color.ORANGE, Color.YELLOW, Color.WHITE};
     static JButton[] colorButtons = new JButton[lastUsedColors.length];
 
     public static void main(String[] args) {
