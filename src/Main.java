@@ -53,7 +53,7 @@ public class Main extends JFrame {
 
         BufferedImage startImg;
         try {
-            startImg = ImageIO.read(new File("src/StandardEmbroidery.png"));
+            startImg = ImageIO.read(new File("src/ StandardEmbroidery.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
